@@ -1,14 +1,26 @@
 import json
-import logging
+import boto3 # boto3（AWSをpythonから操作するためのライブラリ）をインポート
 
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
+translate = boto3.client('translate') # boto3を利用可能とする
 
 def lambda_handler(event, context):
-    
-    logger.info(event)
 
+    input_text = 'おやすみ'
+    
+	# request syntaxを参考にinputとなるtext、source languageとtarget languageを設定
+    response = translate.translate_text(
+      Text=input_text,
+      SourceLanguageCode='ja',
+      TargetLanguageCode='en'
+    )
+
+	# response syntaxを参考にtranslatedtextを取得
+    output_text = response.get('TranslatedText')
+		
+	# json形式で出力する
     return {
         'statusCode': 200,
-        'body': json.dumps('Hello from Lambda!')
+        'body': json.dumps({
+          'output_text': output_text
+        })
     }
