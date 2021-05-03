@@ -11,3 +11,5 @@ Resources:
       Runtime: nodejs12.x
       Timeout: 5
       MemorySize: 256
+      Policies:
+        - TranslateFullAccess
