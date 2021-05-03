@@ -6,11 +6,18 @@ exports.handler = async (event) => {
     let js = JSON.stringify(event);
     let body = JSON.parse(js);
 
-    let js_body_text = "こんにちは";
+    let js_body_text = event['queryStringParameters']['input_text'];
     //日本語から英語に翻訳
     let rs = await getAwsTranslate(js_body_text,'ja','en');
 
-    return {statusCode: 200,message:rs.TranslatedText};
+    return {
+        "statusCode": 200,
+        "body": JSON.stringify({
+            "output_text": rs.TranslatedText
+        }),
+        "isBase64Encoded": false,
+        "headers": {}
+    };
 };
  
 function getAwsTranslate(js_text,in_Language,out_Language) {
