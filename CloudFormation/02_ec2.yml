@@ -15,6 +15,7 @@ Resources:
     Properties:
       ImageId: !Ref EC2AMI
       InstanceType: t2.micro
+      SubnetId: subnet-0fc21eefbe753ac87
 
 Outputs:
   EC2WebServer01:
