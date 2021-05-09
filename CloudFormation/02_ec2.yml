@@ -30,6 +30,8 @@ Resources:
         
         systemctl enable httpd.service
         systemctl start httpd.service
+      SecurityGroupIds: 
+        - !Ref EC2SG
   EC2SG: 
     Type: AWS::EC2::SecurityGroup
     Properties:
