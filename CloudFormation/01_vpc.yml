@@ -22,7 +22,7 @@ Resources:
       MapPublicIpOnLaunch: true
       Tags:
         - Key: Name
-          Value: PublicSubnet1
+          Value: PublicSubnet1-update
 
   PublicSubnet2:
     Type: AWS::EC2::Subnet
