@@ -30,7 +30,17 @@ Resources:
         
         systemctl enable httpd.service
         systemctl start httpd.service
-
+  EC2SG: 
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: sg for web server
+      VpcId: vpc-0c300c53eb65bc665	
+      SecurityGroupIngress: 
+        - IpProtocol: tcp
+          CidrIp: 10.0.0.0/16
+          FromPort: 80
+          ToPort: 80
+    
 Outputs:
   EC2WebServer01:
     Value: !Ref EC2WebServer01
