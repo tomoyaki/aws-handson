@@ -15,34 +15,34 @@ Resources:
     Properties:
       ImageId: !Ref EC2AMI
       InstanceType: t2.micro
-      SubnetId: subnet-0fc21eefbe753ac87
+      SubnetId: subnet-0c98624061b43525b
       UserData: !Base64 |
         #! /bin/bash
-        yum update -y
-        amazon-linux-extras install php7.2 -y
-        yum -y install mysql httpd php-mbstring php-xml
+        sudo yum update -y
+        sudo amazon-linux-extras install php7.3 -y
+        sudo yum -y install mysql httpd php-mbstring php-xml
         
         wget http://ja.wordpress.org/latest-ja.tar.gz -P /tmp/
         tar zxvf /tmp/latest-ja.tar.gz -C /tmp
         cp -r /tmp/wordpress/* /var/www/html/
-        touch /var/www/html/.check_alive
-        chown apache:apache -R /var/www/html
+        sudo touch /var/www/html/.check_alive
+        sudo chown apache:apache -R /var/www/html
         
-        systemctl enable httpd.service
-        systemctl start httpd.service
+        sudo systemctl enable httpd.service
+        sudo systemctl start httpd.service
       SecurityGroupIds: 
         - !Ref EC2SG
   EC2SG: 
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: sg for web server
-      VpcId: vpc-0c300c53eb65bc665	
+      VpcId: vpc-0c802b4294ecfab9c
       SecurityGroupIngress: 
         - IpProtocol: tcp
           CidrIp: 10.0.0.0/16
           FromPort: 80
           ToPort: 80
-    
+
 Outputs:
   EC2WebServer01:
     Value: !Ref EC2WebServer01
